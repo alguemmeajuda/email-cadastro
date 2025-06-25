@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <title>Cadastro • Email</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Geo:ital@0;1&family=Jersey+10&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        /*para resertar o padrao de cada navegador*/
+
+
+        .geo-regular {
+            font-family: "Geo", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .electrolize-regular {
+            font-family: "Electrolize", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .silkscreen-regular {
+            font-family: "Silkscreen", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        body {
+            height: 100%;
+            background-color: #FAFAFA;
+            font-family: "Geo", sans-serif;
+        }
+
+        nav.menu-lateral {
+            width: 6%;
+            height: 100%;
+            background-color: #FAFAFA;
+            padding: 40px 0 40px 1%;
+            box-shadow: 3px 0 0 #ff7489;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            transition: .5s;
+        }
+
+        nav.menu-lateral.expandir {
+            width: 20%;
+        }
+
+        .btn-expandir {
+            width: 100%;
+            padding-left: 5%;
+        }
+
+        .btn-expandir>i {
+            color: #ff7489;
+            font-size: 40px;
+            cursor: pointer;
+
+        }
+
+        .btn-expandir>i:hover {
+            color: #ff98a7;
+        }
+
+        ul {
+            height: 100%;
+            list-style-type: none;
+        }
+
+        ul li.ativo {
+            background-color: #F0ECEC;
+        }
+
+        ul li.item-menu {
+            transition: .2s;
+
+        }
+
+        ul li.item-menu:hover {
+            background-color: #F0ECEC;
+        }
+
+        ul li.item-menu a {
+            color: #ff7489;
+            text-decoration: none;
+            font-size: 24px;
+            padding: 20px 4%;
+            display: flex;
+            margin-bottom: 2%;
+            line-height: 4opx;
+        }
+
+        .txt-link {
+            margin-left: 70px;
+            transition: .5s;
+            opacity: 0;
+            white-space: nowrap;
+        }
+
+        nav.menu-lateral.expandir .txt-link {
+            margin-left: 40px;
+            opacity: 1;
+        }
+
+        .icon>i {
+            font-size: 30px;
+            margin-left: 3%;
+        }
+
+        .icon>i:hover {
+            color: #ff98a7;
+        }
+
+         #bem-vindo {
+            margin-left: 35%;
+            margin-top: 1%;
+            display: flex;
+            font-size: 20px;
+            font-family: "Silkscreen", sans-serif;
+            color: #ff7489;
+
+        }
+
+        #bem-vindo>img {
+            padding-bottom: 4px;
+        }
+
+        #login {
+            margin-left: 40%;
+            text-align: center;
+            border-style: solid;
+            border-width: 1px;
+            border-color: #F0ECEC;
+            /* Cor da borda */
+            border-radius: 20px;
+            width: 400px;
+            height: 550px;
+            box-shadow: 0 0 10px rgba(240, 236, 236, 0.685);
+            /* Sombra borrada */
+        }
+
+        #login>img {
+            margin-top: 10px;
+        }
+
+        form {
+            margin-top: 30px;
+            font-size: 28px;
+            color: #7c7676;
+        }
+
+        input {
+            width: 300px;
+            height: 35px;
+            border-radius: 20px;
+            border-width: 1px;
+            border-color: #ff7489;
+            color: #ff7489;
+            padding: 0px 20px;
+            font-size: 20px;
+            font-family: "Electrolize", sans-serif;
+            border-style: solid;
+        }
+
+        #senha {
+            margin-top: 20px;
+        }
+
+        #email{
+            margin-top: 20px;
+        }
+
+        #login {
+            position: relative;
+            /* Para que o gato se posicione em relação ao login */
+        }
+
+        #gato {
+            position: absolute;
+            /* Para permitir o movimento */
+            left: 0;
+            /* Começa na mesma posição que a logo */
+            top: 20px;
+            /* Ajuste conforme necessário */
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            /* Transição suave */
+            transform: translateX(0);
+            /* Começa na posição original */
+            opacity: 0;
+            /* Começa invisível */
+        }
+
+        #logo:hover+#gato {
+            transform: translateX(30px);
+            /* Move 30px para a direita */
+            opacity: 1;
+            /* Torna visível */
+        }
+
+
+        /* From Uiverse.io by ryota1231 */
+        .animated-button {
+            margin-top: 10%;
+            margin-left: 32%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 16px 36px;
+            border: 4px solid;
+            border-color: transparent;
+            font-size: 25px;
+            font-family: "Geo", sans-serif;
+            border-radius: 100px;
+            font-weight: 600;
+            color: #ff7489;
+            box-shadow: 0 0 0 2px #F0ECEC;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button svg {
+            position: absolute;
+            width: 24px;
+            fill: #ff7489;
+            z-index: 9;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .arr-1 {
+            right: 16px;
+        }
+
+        .animated-button .arr-2 {
+            left: -25%;
+        }
+
+        .animated-button .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: #ff7489;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .text {
+            position: relative;
+            z-index: 1;
+            transform: translateX(-12px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button:hover {
+            box-shadow: 0 0 0 12px transparent;
+            color: #F0ECEC;
+            border-radius: 12px;
+        }
+
+        .animated-button:hover .arr-1 {
+            right: -25%;
+        }
+
+        .animated-button:hover .arr-2 {
+            left: 16px;
+        }
+
+        .animated-button:hover .text {
+            transform: translateX(12px);
+        }
+
+        .animated-button:hover svg {
+            fill: #F0ECEC;
+        }
+
+        .animated-button:active {
+            scale: 0.95;
+            box-shadow: 0 0 0 4px #ff98a7;
+        }
+
+        .animated-button:hover .circle {
+            width: 220px;
+            height: 220px;
+            opacity: 1;
+        }
+
+        #bsair{
+            height: 30px;
+            width: 100px;
+            background-color: #fafafa;
+            border-radius: 20px;
+            color: #ff98a7;
+            border-color: #ff98a7;
+            border-style: solid;
+            cursor: pointer;
+            font-size: 25px;
+            font-family: "Geo", sans-serif;
+            margin-top: 5%;
+            
+        }
+
+        #bsair:hover{
+            color: #ff98a780;
+            border-color: #ff98a780;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="menu-lateral">
+        <div class="btn-expandir">
+            <i class="bi bi-list" id="btn-exp"></i>
+
+            <ul>
+
+                <li class="item-menu">
+                    <a href="login.html">
+                        <span class="icon">
+                            <i class="bi bi-person-circle"></i>
+                        </span>
+
+                        <span class="txt-link">
+                            Login
+                        </span>
+                    </a>
+                </li>
+
+
+                <li class="item-menu">
+                    <a href="escrever.html">
+                        <span class="icon">
+                            <i class="bi bi-pencil-square"></i>
+                        </span>
+
+                        <span class="txt-link">
+                            Mensagem
+                        </span>
+                    </a>
+                </li>
+
+
+                <li class="item-menu">
+                    <a href="caixaEntrada.html">
+                        <span class="icon">
+                            <i class="bi bi-mailbox2-flag"></i>
+                        </span>
+
+                        <span class="txt-link">
+                            Caixa de entrada
+                        </span>
+                    </a>
+                </li>
+
+
+                <li class="item-menu">
+                    <a href="enviados.html">
+                        <span class="icon">
+                            <i class="bi bi-send-fill"></i>
+                        </span>
+
+                        <span class="txt-link">
+                            Enviados
+                        </span>
+                    </a>
+                </li>
+
+
+                <li class="item-menu ativo">
+                    <a href="#">
+                        <span class="icon">
+                            <i class="bi bi-person-fill-add"></i>
+                        </span>
+
+                        <span class="txt-link">
+                            Cadastre-se
+                        </span>
+                    </a>
+                </li>
+
+
+
+            </ul>
+
+        </div>
+    </nav>
+
+    <div id="bem-vindo">
+        <h1> Crie sua conta!</h1>
+        <img src="coracaoo.png" alt="" height="60px" width="60px" id="coracao">
+    </div>
+
+    <div id="login">
+        <img src="logo.png" alt="Logo" height="130px" width="150px" id="logo">
+        <img src="gato.png" alt="Gato" height="100px" width="100px" id="gato">
+        <form action="">
+            <div id="nome">
+                <label for="">Nome:</label>
+                <br>
+                <input type="text">
+                <br>
+            </div>
+
+            <div id="email">
+                <label for="">E-mail:</label>
+                <br>
+                <input type="email">
+                <br>
+            </div>
+
+            <div id="senha">
+                <label for="">Senha:</label>
+                <br>
+                <input type="password">
+                <br>
+            </div>
+
+            <button class="animated-button" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" class="arr-2" viewBox="0 0 24 24">
+                    <path
+                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                    </path>
+                </svg>
+                <span class="text">criar</span>
+                <span class="circle"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="arr-1" viewBox="0 0 24 24">
+                    <path
+                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                    </path>
+                </svg>
+            </button>
+
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
